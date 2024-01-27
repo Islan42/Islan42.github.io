@@ -26,17 +26,20 @@ function loadPaginaZero(){
 		$(this).prop('value', value.toUpperCase())
 	})
 	
-	$('#findPerson').submit(function(event) {
+	$('#findPerson').submit(async function(event) {
 		event.preventDefault()
 		
 		const nome = $('#nomePessoa').val();
 		$('#nomePessoa').prop('value', '');
+		$('#nomePessoa').attr('disabled', true);
 		
+		await carregar(1000)
 		if(nome === 'ISLAN VICTHOR'){
-			carregar(1000)
-			.then((v) => {
-				loadPaginaUm();		
-			})			
+			await carregar(1000)
+			loadPaginaUm()
+		} else {
+			$('#nomePessoa').attr('disabled', false);
+			$('#nomePessoa').focus();
 		}
 	})
 	
@@ -54,8 +57,8 @@ function loadPaginaUm(){
 		</div>
 	`
 	
-	carregar(1000)
-	.then((v) => {
+	carregar(5000)
+	.then(() => {
 		loadPaginaDois();
 	})
 }
@@ -96,13 +99,20 @@ function apagarConteudo(elemento){
 	}
 }
 
-function carregar(tempo){
-	return new Promise((resolve, reject) => {
-		console.log('Loading')
-		
+async function carregar(tempo){
+	let counter = 0
+	const intervalValue = tempo/12;
+	
+	const interval = setInterval(() =>{
+		const msg = counter < 11 ? 'X'.repeat(counter) +  '-'.repeat(10-counter++) : 'X'.repeat(10);
+		console.log(msg)
+	}, intervalValue);
+	
+	await new Promise((resolve, reject) => {
 		setTimeout(()=>{
-			resolve('Finished')
-		}, tempo)
-		
+			resolve()
+		}, tempo)		
 	})
+	
+	clearInterval(interval);
 }
