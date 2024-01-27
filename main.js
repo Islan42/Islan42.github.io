@@ -1,13 +1,12 @@
-const mainElement = document.querySelector('main');
-
 loadPaginaZero();
 
-let pagina = 0;
-
 function loadPaginaZero(){
-	apagarConteudo(mainElement)
+	$('main').empty();
 	
-	mainElement.innerHTML = `
+	$('#command-line').attr('disabled', true)
+	$('#command-line').prop('value', '')
+	
+	$('main').html(`
 		<div class="mx-auto max-w-2xl  bg-zinc-300 mt-8 p-4">
 			<h1 >Sistema de Inteligência Nacional</h1>
 			<form action="/" id="findPerson" class="text-black">
@@ -17,7 +16,7 @@ function loadPaginaZero(){
 				</label>
 			</form>
 		</div>
-	`
+	`);
 	
 	$('#nomePessoa').focus();
 	
@@ -42,31 +41,50 @@ function loadPaginaZero(){
 			$('#nomePessoa').focus();
 		}
 	})
-	
 }
 
 function loadPaginaUm(){
-	apagarConteudo(mainElement)
+	$('main').empty();
 	
-	mainElement.innerHTML = `
+	$('main').html(`
 		<div class="flex">
 			<img src="girassol.webp">
 			<div>
 				<p>Praticamente inofensivo.</p>
 			</div>
 		</div>
-	`
+	`)
 	
-	carregar(5000)
-	.then(() => {
-		loadPaginaDois();
+	$('#command-line').attr('disabled', false);
+	$('#command-line').prop('value', '');
+	$('#command-line').focus();
+	
+	$('#command-line').keyup(function(event) {
+		const value = $(this).prop('value');
+		$(this).prop('value', value.toUpperCase())
 	})
+	
+	$('footer form').submit(async function(event){
+		event.preventDefault();
+		
+		const comando = $('#command-line').val();
+		$('#command-line').prop('value', '');
+		$('#command-line').attr('disabled', true);
+		
+		if(comando === 'ACCESS-PROFILE'){
+			await carregar(5000);
+			loadPaginaDois();
+		} else {
+			$('#command-line').attr('disabled', false);
+			$('#command-line').focus();
+		}
+	});
 }
 
 function loadPaginaDois(){
-	apagarConteudo(mainElement);
+	$('main').empty();
 	
-	mainElement.innerHTML = `
+	$('main').html(`
 		<div class="flex">
 			<img src="girassol.webp">
 			<div>
@@ -90,22 +108,25 @@ function loadPaginaDois(){
 				</ul>
 			</div>
 		</div>
-	`
-}
-
-function apagarConteudo(elemento){
-	while(elemento.firstChild){
-		elemento.removeChild(elemento.firstChild);
-	}
+	`)
 }
 
 async function carregar(tempo){
 	let counter = 0
 	const intervalValue = tempo/12;
 	
+	$('main').append(`
+		<div class="m-auto max-w-xl text-center" id="msgCarregando">
+			<p>Carregando</p>
+			<p id="msgCarregandoStatus">----------</p>
+		</div>
+	`);
+	
 	const interval = setInterval(() =>{
 		const msg = counter < 11 ? 'X'.repeat(counter) +  '-'.repeat(10-counter++) : 'X'.repeat(10);
-		console.log(msg)
+		if($('#msgCarregandoStatus')){
+			$('#msgCarregandoStatus').text(msg)
+		}
 	}, intervalValue);
 	
 	await new Promise((resolve, reject) => {
@@ -115,4 +136,6 @@ async function carregar(tempo){
 	})
 	
 	clearInterval(interval);
+	
+	$('#msgCarregando').detach();
 }
