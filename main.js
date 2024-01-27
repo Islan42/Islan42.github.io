@@ -10,16 +10,36 @@ function loadPaginaZero(){
 	mainElement.innerHTML = `
 		<div class="mx-auto max-w-2xl  bg-zinc-300 mt-8 p-4">
 			<h1 >Sistema de Inteligência Nacional</h1>
-			<form action="/">
-				<label for="nome">
+			<form action="/" id="findPerson" class="text-black">
+				<label for="nomePessoa">
 					Buscar: 
-					<input type="text" id="nome">
+					<input type="text" id="nomePessoa" name="nomePessoa">
 				</label>
 			</form>
 		</div>
 	`
 	
-	loadPaginaUm();
+	$('#nomePessoa').focus();
+	
+	$('#nomePessoa').keyup(function(event) {
+		const value = $(this).prop('value');
+		$(this).prop('value', value.toUpperCase())
+	})
+	
+	$('#findPerson').submit(function(event) {
+		event.preventDefault()
+		
+		const nome = $('#nomePessoa').val();
+		$('#nomePessoa').prop('value', '');
+		
+		if(nome === 'ISLAN VICTHOR'){
+			carregar(1000)
+			.then((v) => {
+				loadPaginaUm();		
+			})			
+		}
+	})
+	
 }
 
 function loadPaginaUm(){
@@ -34,7 +54,10 @@ function loadPaginaUm(){
 		</div>
 	`
 	
-	loadPaginaDois();
+	carregar(1000)
+	.then((v) => {
+		loadPaginaDois();
+	})
 }
 
 function loadPaginaDois(){
@@ -52,7 +75,7 @@ function loadPaginaDois(){
 					<li>Express.Js</li>
 					<li>Vue</li>
 					<li>React</li>
-					<li>JQuery</li>
+					<li>jQuery</li>
 					<li>PHP</li>
 					<li>Laravel</li>
 					<li>Python</li>
@@ -74,5 +97,12 @@ function apagarConteudo(elemento){
 }
 
 function carregar(tempo){
-	console.log('Loading')
+	return new Promise((resolve, reject) => {
+		console.log('Loading')
+		
+		setTimeout(()=>{
+			resolve('Finished')
+		}, tempo)
+		
+	})
 }
