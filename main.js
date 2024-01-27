@@ -7,12 +7,12 @@ function loadPaginaZero(){
 	$('#command-line').prop('value', '')
 	
 	$('main').html(`
-		<div class="mx-auto max-w-2xl  bg-zinc-300 mt-8 p-4">
-			<h1 >Sistema de Inteligência Nacional</h1>
-			<form action="/" id="findPerson" class="text-black">
+		<div class="mx-auto max-w-xl  bg-zinc-300 mt-8 p-4">
+			<h1 class="text-center font-bold">Sistema de Inteligência Nacional</h1>
+			<form action="/" id="findPerson" class="text-black mt-4 mx-auto max-w-80">
 				<label for="nomePessoa">
 					Buscar: 
-					<input type="text" id="nomePessoa" name="nomePessoa">
+					<input type="text" id="nomePessoa" name="nomePessoa" class="px-2 py-1">
 				</label>
 			</form>
 		</div>
@@ -33,7 +33,7 @@ function loadPaginaZero(){
 		$('#nomePessoa').attr('disabled', true);
 		
 		await carregar(1000)
-		if(nome === 'ISLAN VICTHOR'){
+		if(nome.toUpperCase() === 'ISLAN VICTHOR'){
 			await carregar(1000)
 			loadPaginaUm()
 		} else {
@@ -47,9 +47,11 @@ function loadPaginaUm(){
 	$('main').empty();
 	
 	$('main').html(`
-		<div class="flex">
-			<img src="girassol.webp">
-			<div>
+		<div class="flex items-center">
+			<div class="p-4">
+				<img src="girassol.webp">
+			</div>
+			<div class="p-4">
 				<p>Praticamente inofensivo.</p>
 			</div>
 		</div>
@@ -71,7 +73,7 @@ function loadPaginaUm(){
 		$('#command-line').prop('value', '');
 		$('#command-line').attr('disabled', true);
 		
-		if(comando === 'ACCESS-PROFILE'){
+		if(comando.toUpperCase() === 'PROFILE'){
 			await carregar(5000);
 			loadPaginaDois();
 		} else {
@@ -85,27 +87,32 @@ function loadPaginaDois(){
 	$('main').empty();
 	
 	$('main').html(`
-		<div class="flex">
-			<img src="girassol.webp">
-			<div>
-				<p>Olá. Meu nome é Islan Victhor, tenho 24 anos, e sou estudante de Ciência da Computação. Atualmente busco insersão na área de Desenvolvimento Web.</p>
-				
-				<h2>Habilidades e Conhecimentos</h2>
-				<ul>
-					<li>JavaScript</li>
-					<li>Express.Js</li>
-					<li>Vue</li>
-					<li>React</li>
-					<li>jQuery</li>
-					<li>PHP</li>
-					<li>Laravel</li>
-					<li>Python</li>
-					<li>Flask</li>
-					<li>C#</li>
-					<li>Docker</li>
-					<li>MySQL</li>
-					<li>MongoDB</li>
-				</ul>
+		<div class="flex items-center">
+			<div class="p-4">
+				<img src="girassol.webp">
+			</div>
+			<div class="p-4">
+				<div>
+					<p>Olá. Meu nome é Islan Victhor, tenho 24 anos, e sou estudante de Ciência da Computação. Atualmente busco insersão na área de Desenvolvimento Web.</p>
+				</div>
+				<div class="bg-zinc-300  mt-2 p-2 text-black">
+					<h2 class="text-center">Habilidades e Conhecimentos</h2>
+					<ul>
+						<li>JavaScript</li>
+						<li>Express.Js</li>
+						<li>Vue</li>
+						<li>React</li>
+						<li>jQuery</li>
+						<li>PHP</li>
+						<li>Laravel</li>
+						<li>Python</li>
+						<li>Flask</li>
+						<li>C#</li>
+						<li>Docker</li>
+						<li>MySQL</li>
+						<li>MongoDB</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	`)
@@ -116,7 +123,7 @@ async function carregar(tempo){
 	const intervalValue = tempo/12;
 	
 	$('main').append(`
-		<div class="m-auto max-w-xl text-center" id="msgCarregando">
+		<div class="mx-auto mt-6 max-w-xl text-center" id="msgCarregando">
 			<p>Carregando</p>
 			<p id="msgCarregandoStatus">----------</p>
 		</div>
