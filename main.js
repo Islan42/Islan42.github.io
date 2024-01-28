@@ -74,7 +74,7 @@ function loadPaginaUm(){
 		$('#command-line').attr('disabled', true);
 		
 		if(comando.toUpperCase() === 'PROFILE'){
-			await carregar(5000);
+			await carregar(2000);
 			loadPaginaDois();
 		} else {
 			$('#command-line').attr('disabled', false);
@@ -95,27 +95,27 @@ function loadPaginaDois(){
 				<div>
 					<p>Olá. Meu nome é Islan Victhor, tenho 24 anos, e sou estudante de Ciência da Computação. Atualmente busco insersão na área de Desenvolvimento Web.</p>
 				</div>
-				<div class="bg-zinc-300  mt-2 p-2 text-black">
+				<div id="habilidades" class="bg-zinc-300  mt-2 p-2 text-black">
 					<h2 class="text-center">Habilidades e Conhecimentos</h2>
-					<ul>
-						<li>JavaScript</li>
-						<li>Express.Js</li>
-						<li>Vue</li>
-						<li>React</li>
-						<li>jQuery</li>
-						<li>PHP</li>
-						<li>Laravel</li>
-						<li>Python</li>
-						<li>Flask</li>
-						<li>C#</li>
-						<li>Docker</li>
-						<li>MySQL</li>
-						<li>MongoDB</li>
-					</ul>
+					<table class="border-separate border border-black bg-white">
+						<tbody>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
 	`)
+	
+	$.getJSON('habilidades.json', function(data){
+		$.each(data, function(i, habilidade){
+			$('#habilidades table tbody').append(`
+				<tr>
+					<td class="border border-black  p-1">${habilidade[0]}</td>
+					<td class="border border-black  p-1">${habilidade[1]}</td>
+				</tr>
+			`)
+		})
+	})
 }
 
 async function carregar(tempo){
