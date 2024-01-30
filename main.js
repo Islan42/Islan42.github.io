@@ -87,15 +87,15 @@ function loadPaginaDois(){
 	$('main').empty();
 	
 	$('main').html(`
-		<div class="flex items-center">
+		<div class="flex items-center  h-full">
 			<div class="p-4">
 				<img src="girassol.webp">
 			</div>
-			<div class="p-4">
-				<div>
+			<div class="p-4  h-full overflow-auto">
+				<div class="p-4 bg-zinc-300">
 					<p>Olá. Meu nome é Islan Victhor, tenho 24 anos, e sou estudante de Ciência da Computação. Atualmente busco insersão na área de Desenvolvimento Web.</p>
 				</div>
-				<div id="habilidades" class="bg-zinc-300  mt-2 p-2 text-black">
+				<div id="habilidades" class="bg-zinc-300 mt-2 p-2 text-black">
 					<h2 class="text-center">Habilidades e Conhecimentos</h2>
 					<table class="border-separate border border-black bg-white">
 						<tbody>
