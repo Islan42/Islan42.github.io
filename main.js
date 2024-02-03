@@ -7,8 +7,8 @@ function loadPaginaZero(){
 	$('#command-line').prop('value', '')
 	
 	$('main').html(`
-		<div class="mx-auto max-w-xl  bg-emerald-600 mt-8 p-4">
-			<img src="public/SNI_logo.png" class="my-4 mx-auto h-48">
+		<div class="mx-auto max-w-xl  bg-zinc-300 mt-8 p-4">
+			<img src="public/SNI_logo2.png" class="my-4 mx-auto h-48">
 			<h2 class="text-center font-bold text-black">Cadastro Nacional de Pessoas Fuleiras</h2>
 			<form action="/" id="findPerson" class="text-black mt-4 mx-auto max-w-80">
 				<label for="nomePessoa">
