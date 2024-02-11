@@ -1,6 +1,48 @@
-loadPaginaZero();
+let agente;
 
-function loadPaginaZero(){
+homepage();
+
+function homepage(){
+	$('main').empty();
+	
+	$('#command-line').attr('disabled', true)
+	$('#command-line').prop('value', '')
+	
+	$('main').html(`
+		<div class="mx-auto max-w-xl  bg-zinc-300 mt-8 p-4">
+			<img src="public/SNI_logo_black.png" class="my-4 mx-auto h-48">
+			<h2 class="text-center font-bold text-black">Cadastro Nacional de Pessoas Fuleiras</h2>
+			<form action="/" id="login" class="text-black mt-4 mx-auto max-w-80">
+				<div class="flex items-center">
+					<label for="agente" class="mr-2">AGENTE</label>
+					<input type="text" id="agente" name="agente" class="px-2 py-1 w-full">
+				</div>
+			</form>
+		</div>
+	`);
+	
+	$('#agente').focus();
+	
+	$('#agente').keyup(function(event) {
+		const value = $(this).prop('value');
+		$(this).prop('value', value.toUpperCase())
+	})
+	
+	$('#login').submit(async function(event) {
+		event.preventDefault()
+		
+		agente = $('#agente').val().toUpperCase();
+		$('#agente').prop('value', '');
+		$('#agente').attr('disabled', true);
+		
+		await carregar(500)
+		$('main').css('background-image', 'url("public/SNI_logo_white.png")');
+		$('main').addClass('bg-cover bg-center');
+		buscar_index();
+	})	
+}
+
+function buscar_index(){
 	$('main').empty();
 	
 	$('#command-line').attr('disabled', true)
@@ -17,6 +59,7 @@ function loadPaginaZero(){
 				</label>
 			</form>
 		</div>
+		<span class="absolute top-8 left-0  text-xs">AGENT: ${agente}</span>
 	`);
 	
 	$('#nomePessoa').focus();
