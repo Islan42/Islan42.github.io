@@ -14,12 +14,13 @@ function homepage(){
 			<h2 class="text-center font-bold text-black">Cadastro Nacional de Pessoas Fuleiras</h2>
 			<form action="/" id="login" class="text-black mt-4 mx-auto max-w-80">
 				<div class="flex items-center">
-					<label for="agente" class="mr-2">AGENTE</label>
-					<input type="text" id="agente" name="agente" class="px-2 py-1 w-full">
+					<input type="text" id="agente" placeholder="AGENTE" name="agente" class="px-2 py-1 w-full">
 				</div>
 			</form>
 		</div>
 	`);
+	
+	flashMessage('TESTE', 'RED');
 	
 	$('#agente').focus();
 	
@@ -37,7 +38,7 @@ function homepage(){
 		
 		await carregar(500)
 		$('main').css('background-image', 'url("public/SNI_logo_white.png")');
-		$('main').addClass('bg-cover bg-center');
+		$('main').addClass('bg-contain bg-no-repeat bg-center');
 		buscar_index();
 	})	
 }
@@ -53,14 +54,13 @@ function buscar_index(){
 			<img src="public/SNI_logo_black.png" class="my-4 mx-auto h-48">
 			<h2 class="text-center font-bold text-black">Cadastro Nacional de Pessoas Fuleiras</h2>
 			<form action="/" id="findPerson" class="text-black mt-4 mx-auto max-w-80">
-				<label for="nomePessoa">
-					Buscar: 
-					<input type="text" id="nomePessoa" name="nomePessoa" class="px-2 py-1">
-				</label>
+				<input type="text" id="nomePessoa" name="nomePessoa" placeholder="BUSCAR" class="px-2 py-1 w-full">
 			</form>
 		</div>
 		<span class="absolute top-8 left-0  text-xs">AGENT: ${agente}</span>
 	`);
+	
+	
 	
 	$('#nomePessoa').focus();
 	
@@ -79,7 +79,7 @@ function buscar_index(){
 		await carregar(1000)
 		if(nome.toUpperCase() === 'ISLAN VICTHOR'){
 			await carregar(1000)
-			loadPaginaUm()
+			buscar_result()
 		} else {
 			$('#nomePessoa').attr('disabled', false);
 			$('#nomePessoa').focus();
@@ -87,7 +87,7 @@ function buscar_index(){
 	})
 }
 
-function loadPaginaUm(){
+function buscar_result(){
 	$('main').empty();
 	
 	$('main').html(`
@@ -119,7 +119,7 @@ function loadPaginaUm(){
 		
 		if(comando.toUpperCase() === 'PROFILE'){
 			await carregar(2000);
-			loadPaginaDois();
+			profile();
 		} else {
 			$('#command-line').attr('disabled', false);
 			$('#command-line').focus();
@@ -127,7 +127,7 @@ function loadPaginaUm(){
 	});
 }
 
-function loadPaginaDois(){
+function profile(){
 	$('main').empty();
 	
 	$('main').html(`
@@ -189,4 +189,23 @@ async function carregar(tempo){
 	clearInterval(interval);
 	
 	$('#msgCarregando').detach();
+}
+
+function flashMessage(msg, color){
+	const COLORS = {GREEN: 'bg-emerald-600', RED: 'bg-red-600'}
+	$('main').append(`
+		<div id="flashMessage" class="w-80 h-12 mt-8 leading-10 text-2xl text-white ${COLORS[color]}  border-4 border-double border-white  mx-auto text-center">
+			<p>${msg}</p>
+		</div>
+	`);
+	
+	awaitTime(1000).then(function() {		
+		$('#flashMessage').remove();
+	})
+}
+
+function awaitTime(delay){
+	return new Promise((resolve, reject) => {
+		setTimeout(() => resolve(), delay);
+	})
 }
