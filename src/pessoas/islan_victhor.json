@@ -1,0 +1,22 @@
+{
+	"nome": "Islan Victhor",
+	"resumo": "Praticamente inofensivo.",
+	"senha": "42",
+	"introducao": "Olá. Meu nome é Islan Victhor, tenho 24 anos, e sou estudante de Ciência da Computação. Atualmente busco insersão na área de Desenvolvimento Web.",
+	"habilidades": [
+		["JavaScript", "6 Meses"],
+		["Vue", "2 Meses"],
+		["React", "1 Mês"],
+		["jQuery", "2 Dias"],
+		["Express.JS", "1 Semana"],
+		["Tailwind.CSS", "2 Semanas"],
+		["PHP", "2 Meses"],
+		["Laravel", "1 Mês"],
+		["Python", "3 Meses"],
+		["Flask", "1 Semana"],
+		["C#", "1 Semana"],
+		["Docker", "1 Mês"],
+		["MySQL", "1 Mês"],
+		["MongoDB", "1 Semana"]
+	]
+}
